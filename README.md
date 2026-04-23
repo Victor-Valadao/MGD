@@ -82,6 +82,7 @@ $$
 ### Stochastic equation solved (before time discretization)
 
 In continuous-time form, the guided dynamics can be interpreted as
+
 \begin{equation}
 dX_t =
 \left[\sum_v \eta_v(t)\,\nabla_x M_v(X_t)
