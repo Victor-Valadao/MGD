@@ -45,6 +45,92 @@ python3 run_mgd.py <sigma> <Nt> <seed> <data_path> <moms_path> <nwin>
 
 ---
 
+## Mathematical formulation (LaTeX)
+
+The implementation follows a moment-constrained stochastic evolution in discrete time.
+
+### Interpolated reference path
+
+At step \(i \in \{0,\dots,N_t\}\), the code interpolates between initial and target ensembles:
+
+$$
+a_i=\cos\!\left(\frac{\pi i}{2N_t}\right), \qquad
+b_i=\sin\!\left(\frac{\pi i}{2N_t}\right),
+$$
+
+$$
+x_i^{\mathrm{ref}} = a_i\,y_0 + b_i\,y_1.
+$$
+
+If \(M(\cdot)\) is the vector of selected moments, the target moment path is
+
+$$
+m_i = \left\langle M\!\left(x_i^{\mathrm{ref}}\right)\right\rangle_e,
+$$
+
+where \(\langle \cdot \rangle_e\) denotes ensemble average.
+
+### Gradient Gram matrix
+
+Let \(\nabla_x M_v(x)\) be the gradient of moment component \(v\). The Gram matrix used in the linear solves is:
+
+$$
+G_{uv}(x) = \frac{1}{N_e}\sum_{e=1}^{N_e}\sum_{j=1}^{N_x}
+\partial_{x_j}M_u(x^{(e)})\,\partial_{x_j}M_v(x^{(e)}).
+$$
+
+### Euler–Maruyama + moment correction step
+
+Given \(m_0, m_1\) at consecutive times and \(\Delta t=1/N_t\):
+
+1. **Pre-noise control**
+
+$$
+\frac{m_1-m_0}{\Delta t} = G_0\,\eta.
+$$
+
+2. **Stochastic forward step**
+
+$$
+y = x + \Delta t\,\sum_v \eta_v \nabla_x M_v(x)
+    + \sqrt{2\Delta t}\,\sigma\,\xi,\qquad \xi\sim\mathcal{N}(0,I).
+$$
+
+3. **Post-noise correction**
+
+$$
+\theta = \frac{1}{\Delta t\,\sigma^2}\,G_1^{-1}\!\left(\langle M(y)\rangle_e - m_1\right),
+$$
+
+$$
+x^{+} = y - \Delta t\,\sigma^2 \sum_v \theta_v \nabla_x M_v(y).
+$$
+
+This is exactly the logic implemented by `EM_step` in `mgd_lib.py`.
+
+### Moments used in practice
+
+Examples of moment families implemented in `moments_funcs.py`:
+
+- Windowed field-power moments
+$$
+\mu_{p,w}(x)=\frac{1}{|w|}\sum_{j\in w}x_j^p.
+$$
+
+- Diagonal structure functions (increments \(\delta_\ell x_j = x_{j+\ell}-x_j\))
+$$
+S_n(\ell)=\left\langle \frac{1}{N_x-\ell}\sum_{j=1}^{N_x-\ell}(\delta_\ell x_j)^n \right\rangle_e.
+$$
+
+- Non-diagonal second-order moments
+$$
+S_{11}(\ell_i,\ell_j)=
+\left\langle \frac{1}{N_{ij}}\sum_{j}
+\delta_{\ell_i}x_j\,\delta_{\ell_j}x_j \right\rangle_e.
+$$
+
+---
+
 ## Core modules
 
 ### `mgd_lib.py`
@@ -120,4 +206,3 @@ echo "10110010" > mom1.txt
 # 3) Run MGD
 python3 run_mgd.py 0.3 1000 1 dataset_gss_1.npz mom1.txt 4
 ```
-
