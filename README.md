@@ -114,9 +114,9 @@ Examples of moment families implemented in `moments_funcs.py`:
 
 - Windowed field-power moments
 
-$
+$$
 \mu_{p,w}(x)=\frac{1}{|w|}\sum_{j\in w}x_j^p.
-$
+$$
 
 - Diagonal structure functions (increments $\delta_\ell x_j = x_{j+\ell}-x_j$)
 $
