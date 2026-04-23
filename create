@@ -1,0 +1,24 @@
+#!/bin/bash
+#SBATCH -p std
+#SBATCH --time 00:20:00      # format: HH:MM:SS
+#SBATCH -N 1                 # xxx node
+#SBATCH --ntasks-per-node=1  # xxx core per node
+#SBATCH --mem=1000           # memory per node out of xxx MB
+#SBATCH --job-name=MGD-vitu-gauss
+# SBATCH -w a100-2           # ask for specific host
+# SBATCH --gres=gpu:a100:1   # xxx gpus per node
+# SBATCH --mail-type=ALL
+# SBATCH --mail-user=<user_email>
+
+module purge
+module load mpi/latest
+source /mnt/petaStor/valadao/C-DM-lagr/envao/bin/activate
+
+# python3 run_mgd.py "$sigma" "$Nt" "$seed" "$data_path" "$moms_path" "$solve_bool"
+# python3 generate_dataset_bur.py 256 512 256 0.001 1 1 1 1
+# python3 generate_dataset_fbm.py 256 512 0.25 1 3.14159 1
+# python3 generate_dataset_gss.py 256 512 1 0.5 1
+
+python3 generate_dataset_bur.py 1024 512 4000 0.0005 1 1 1 1
+
+# bash paral.sh
