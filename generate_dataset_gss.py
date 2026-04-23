@@ -1,6 +1,5 @@
 import numpy as np
 import sys
-import os
 
 def noisegen(x,Lc,eL,m):
     
@@ -29,6 +28,7 @@ x=np.arange(Nx)*dx
 np.random.seed(se)
 
 y,corr_th=noisegen(x,Lc,eL,Ne-1)
+corr_th=np.fft.fftshift(corr_th)
 
 np.savez("dataset_gss_{:}".format(se),
          data=y,
@@ -52,4 +52,3 @@ np.savez("dataset_gss_{:}".format(se),
 
 # zx=np.mean(zx,axis=0)
 # ze=np.mean(ze,axis=0)
-
