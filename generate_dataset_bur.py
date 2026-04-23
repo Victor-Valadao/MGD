@@ -1,7 +1,6 @@
 import numpy as np
 import sys
 import time as tm
-import os
 
 # ============================================================
 # 3/2-rule for rfft
@@ -62,7 +61,7 @@ def sample_noisehat(noise_data):
 
 def make_step_data(N, L, nu, dt, Lc, g):
     if N % 2 != 0:
-        raise ValueError("Need to be odd")
+        raise ValueError("N must be even for rfft with 3/2 padding")
 
     M = 3 * N // 2
     dx = L / N
@@ -172,7 +171,7 @@ for n in range(m):
     if n % iout == 0:
         temp=np.fft.irfft(vhat, n=Nx)
         check=np.mean(temp)
-        if check == np.nan:
+        if np.isnan(check):
             print("nan")
             break
             
@@ -218,4 +217,3 @@ np.savez("dataset_bur_{:}".format(se),
          EnerI2=EnerI2,
          diss=diss,
         )
-
