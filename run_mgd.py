@@ -87,6 +87,8 @@ count_acc = 0
 
 t0 = tm.time()
 
+save_stride = max(1, Nt // 100)
+
 for i in range(i0,Nt,1):
     # m0 = mt[i]
     # m1 = mt[i+1]
@@ -122,12 +124,15 @@ for i in range(i0,Nt,1):
         if i > 0:
             elap_time(t0,i,Nt)        
         
-    if i % (Nt//100) == 0 and i > 0:
+    if i % save_stride == 0 and i > 0:
         save_check(name,y,tet,eta,G_0,G_1,mt,moms,Nt,dt,seed,sigma,nwin,True)
     
 print("\nTotal time {:.2f} min".format((tm.time()-t0)/60))
 print_timings(timings,counts)
 
 save_check(name,y,tet,eta,G_0,G_1,mt,moms,Nt,dt,seed,sigma,nwin,False)
-os.remove("./data/temp/"+name)
+
+temp_file = "./data/temp/" + name
+if os.path.exists(temp_file):
+    os.remove(temp_file)
 
