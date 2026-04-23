@@ -83,9 +83,9 @@ $$
 
 In continuous-time form, the guided dynamics can be interpreted as
 
-\begin{equation}
+$$
 dX_t = \left[\sum_v \eta_v(t)\,\nabla_x M_v(X_t)-\sigma^2 \sum_v \theta_v(t)\,\nabla_x M_v(X_t)\right]dt+\sqrt{2}\,\sigma\,dW_t,
-\end{equation}
+$$
 
 where $W_t$ is a Wiener process, $\eta$ is the pre-noise moment control, and
 $\theta$ is the post-noise correction used to match the moment path.
