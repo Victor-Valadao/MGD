@@ -119,16 +119,18 @@ $$
 $$
 
 - Diagonal structure functions (increments $\delta_\ell x_j = x_{j+\ell}-x_j$)
-$
+
+$$
 S_n(\ell)=\left\langle \frac{1}{N_x-\ell}\sum_{j=1}^{N_x-\ell}(\delta_\ell x_j)^n \right\rangle_e.
-$
+$$
 
 - Non-diagonal second-order moments
-$
+
+$$
 S_{11}(\ell_i,\ell_j)=
 \left\langle \frac{1}{N_{ij}}\sum_{j}
 \delta_{\ell_i}x_j\,\delta_{\ell_j}x_j \right\rangle_e.
-$
+$$
 
 ---
 
