@@ -113,6 +113,7 @@ This is exactly the logic implemented by `EM_step` in `mgd_lib.py`.
 Examples of moment families implemented in `moments_funcs.py`:
 
 - Windowed field-power moments
+
 $
 \mu_{p,w}(x)=\frac{1}{|w|}\sum_{j\in w}x_j^p.
 $
