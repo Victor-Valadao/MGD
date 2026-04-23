@@ -1,6 +1,5 @@
 import numpy as np
 import sys
-import os
 
 def noisegen(x, Lc, H, m=1):
     """
@@ -70,4 +69,3 @@ np.savez("dataset_fbm_{:}".format(se),
 
 # zx=np.mean(zx,axis=0)
 # ze=np.mean(ze,axis=0)
-

@@ -1,0 +1,16 @@
+00101010
+
+
+
+## Code to add moments: 0--False, 1--True
+# diag 1     (usually 0, homogeneity)
+# non-diag 1 (always 0 2-scale 1 field)
+# diag 2
+# non-diag 2
+# diag 3
+# non-diag 3
+# diag 4
+# non-diag 4
+
+## Attention! not use diag and non-diag of the same order:
+## Gram-Matrix will have duplicated lines (singular)

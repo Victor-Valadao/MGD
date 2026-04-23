@@ -127,16 +127,19 @@ This is exactly the logic implemented by `EM_step` in `mgd_lib.py`.
 Examples of moment families implemented in `moments_funcs.py`:
 
 - Windowed field-power moments
+
 $$
 \mu_{p,w}(x)=\frac{1}{|w|}\sum_{j\in w}x_j^p.
 $$
 
 - Diagonal structure functions (increments $\delta_\ell x_j = x_{j+\ell}-x_j$)
+
 $$
 S_n(\ell)=\left\langle \frac{1}{N_x-\ell}\sum_{j=1}^{N_x-\ell}(\delta_\ell x_j)^n \right\rangle_e.
 $$
 
 - Non-diagonal second-order moments
+
 $$
 S_{11}(\ell_i,\ell_j)=
 \left\langle \frac{1}{N_{ij}}\sum_{j}
